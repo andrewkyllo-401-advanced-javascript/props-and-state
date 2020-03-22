@@ -1,14 +1,17 @@
 import React from 'react';
 import './App.scss';
 import Results from '../Results'
+import { If, Unless } from '../Conditionals'
 // import { render } from 'sass';
 
-const POKEAPI_URL = 'https://pokeapi.co/api/v2/pokemon/'
+// const POKEAPI_URL = 'https://pokeapi.co/api/v2/pokemon/'
 
 class App extends React.Component {
   constructor () {
     super() 
     this.state = {
+      count: 0,
+      headers: [],
       URL: '',
       results: [],
       method: 'GET'
@@ -25,7 +28,9 @@ class App extends React.Component {
     const raw = await fetch(this.state.URL, { method: this.state.method })
     const data = await raw.json()
     this.setState({
-      results: data.results
+      results: data.results,
+      headers: [...raw.headers.entries()],
+      count: data.count
     })
   }
 
@@ -42,10 +47,12 @@ class App extends React.Component {
             </select>
           <button onClick={this.getDataApi} >Lets Go!</ button>
         </form>
-        {(this.state.results.length) 
-        ? <Results content={this.state.results}/>
-        : null
-        }
+        <Unless condition={this.state.number > 0}>
+          <p className="error">Negative numbers aren't allowed!</p>
+        </Unless>
+        <If condition={this.state.results.length > 0}>
+          <Results response={this.state.results} count={this.state.count} headers={this.state.headers} />
+        </If>
       </div>
     );
   }
