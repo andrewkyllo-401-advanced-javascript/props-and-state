@@ -1,20 +1,31 @@
 import React from 'react'
+import ReactJson from 'react-json-view'
 
 
 class Results extends React.Component {
   render () {
     return (
-      <ul>
-        {this.props.content.map(object => {
+      <div className="Headers" >
+        Headers: 
+                {this.props.headers.map(header => {
           return (
-            <li key={object.name}>
-              <a href={object.url}>{object.name}</a>
+            <li key={header}>
+              <span>{header}</span>
             </li>
           )
         })}
-      </ul>
+        Results: 
+        <ReactJson src={this.props.response} />
+      </div>
     )
   }
 }
 
 export default Results;
+  // {this.props.response.map(object => {
+  //   return (
+  //     <li key={object.name}>
+  //       <a href={object.url}>{object.name}</a>
+  //     </li>
+  //   )
+  // })}

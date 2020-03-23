@@ -1,0 +1,25 @@
+.Menu {
+  ul {
+    margin: 0px;
+    background-color: gray;
+    height: 20px;
+    padding: 10px;
+    li {
+      list-style-type: none;
+      display: inline;
+      margin: 0 3em;
+      border: 0px solid black;
+      border-radius: 5px;
+      padding: 0.5em;
+      background-color: #baddad;
+    }
+  }
+}
+
+.Header {
+  background-color: lightgray;
+  h1 {
+    padding: 5px;
+    display: inline;
+  }
+}
