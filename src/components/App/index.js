@@ -9,54 +9,30 @@ import { If, Unless, When } from '../Conditionals'
 class App extends React.Component {
   constructor () {
     super() 
-    this.state = {
-      headers: [],
-      URL: '',
-      results: null,
-      method: 'GET',
-      loading: false,
-    }
-  }
-
- handleSubmit(event) {
-   event.preventDefault()
- }
-  
-
-  getDataApi = async () => {
-    await this.setState({ URL: this.refs.URLInput.value, method: this.refs.methodSelect.value })
-    this.props.history.push({URL: this.state.URL, method: this.state.method})
-    this.setState({loading: true})
-    const raw = await fetch(this.state.URL, { method: this.state.method })
-    this.setState({loading:false})
-    const data = await raw.json()
-    this.setState({
-      results: data,
-      headers: [...raw.headers.entries()],
-    })
+    this.state = {}
   }
 
   render() {
     return (
       <div className="App">
-        <form onSubmit={this.handleSubmit}>
-            <input ref="URLInput" value={this.state.value} type="text" name="URL" placeholder="Type in API URL here"/>
-            <select ref="methodSelect">
-              <option defaultValue="get">GET</option>
-              <option value="put">PUT</option>
-              <option value="post">POST</option>
-              <option value="delete">DELETE</option>
+        <form onSubmit={this.props.handleSubmit}>
+            <input onChange={this.props.handleInput} type="text" name="URL" placeholder="Type in API URL here"/>
+            <select value={this.state.value} onChange={this.props.handleSelection}>
+              <option value="GET">GET</option>
+              <option value="PUT">PUT</option>
+              <option value="POST">POST</option>
+              <option value="DELETE">DELETE</option>
             </select>
-          <button onClick={this.getDataApi} >Lets Go!</ button>
+          <button onClick={this.props.getDataApi} >Lets Go!</ button>
         </form>
-        <When condition={this.state.loading}>
+        <When condition={this.props.loading}>
           Loading!!!!!!!!!!!!!!!!!!!!!
         </When>
-        <Unless condition={this.state.results !== 0}>
+        <Unless condition={this.props.results !== 0}>
           <p className="error">No results!</p>
         </Unless>
-        <If condition={this.state.results !== null}>
-          <Results response={this.state.results} headers={this.state.headers} />
+        <If condition={this.props.results !== null}>
+          <Results response={this.props.results} headers={this.props.headers} />
         </If>
       </div>
     );
