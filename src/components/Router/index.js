@@ -4,20 +4,29 @@ import Header from '../Header'
 import History from '../History'
 import App from '../App'
 
-const Router = () => {
-  return (
-    <BrowserRouter>
-      <Header />
-      <Switch>
-        <Route path="/history">
-          <History />
-        </Route>
-        <Route path="/">
-          <App />
-        </Route>
-      </Switch>
-    </BrowserRouter>
-  )
+class Router extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      history: []
+    }
+  }
+  
+  render () {
+    return (
+      <BrowserRouter>
+        <Header />
+        <Switch>
+          <Route path="/history">
+            <History history={this.state.history} />
+          </Route>
+          <Route path="/">
+            <App history={this.state.history}/>
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    )
+  }
 }
 
 export default Router

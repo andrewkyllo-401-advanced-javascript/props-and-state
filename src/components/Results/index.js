@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactJson from 'react-json-view'
 
 
 class Results extends React.Component {
@@ -13,18 +14,18 @@ class Results extends React.Component {
             </li>
           )
         })}
-        <p>Count: {JSON.stringify(this.props.count)}</p>
         Results: 
-        {this.props.response.map(object => {
-          return (
-            <li key={object.name}>
-              <a href={object.url}>{object.name}</a>
-            </li>
-          )
-        })}
+        <ReactJson src={this.props.response} />
       </div>
     )
   }
 }
 
 export default Results;
+  // {this.props.response.map(object => {
+  //   return (
+  //     <li key={object.name}>
+  //       <a href={object.url}>{object.name}</a>
+  //     </li>
+  //   )
+  // })}
